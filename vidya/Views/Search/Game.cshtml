@@ -1,0 +1,36 @@
+﻿@using vidya.Models.Search;
+
+@model GameSearchResultModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="jumbotron">
+    <h1>Search</h1>
+    <p class="lead">Search for a game...</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+
+
+
+        <h2>@Model.Name</h2>
+
+        @if (Model.Platforms != null)
+        {
+            <h3>Platforms:</h3>
+            <ul>
+                @foreach (var platform in Model.Platforms)
+                {
+                    <li>@platform.Name</li>
+                }
+            </ul>
+        }
+
+        <hr />
+        @Html.Raw(Model.Description)
+      
+    </div>
+</div>

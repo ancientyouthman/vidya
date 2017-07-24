@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Game";
+}
+
+
+<div ng-controller="gameController">
+
+    <div class="spinner" ng-show="loading">
+        <img src="https://loading.io/spinners/spinner/lg.ajax-spinner-preloader.gif" class="ajax-loader" />
+    </div>
+    <h2>{{model.Name}}</h2>
+    <div class="alert alert-success" ng-show="addSuccess">Sucessfully added {{model.Name}} to your Collection!</div>
+    <button ng-click="addToCollection(model.Id)">Add to collection</button>
+
+        <h3>Platforms:</h3>
+        <div ng-repeat="platform in model.Platforms">
+            {{platform.Name}}
+        </div>
+
+        <hr />
+        <div ng-bind-html="model.Description"></div>
+    </div>

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Collection";
+}
+
+
+<div ng-controller="collectionController">
+
+    <div class="spinner" ng-show="loading">
+        <img src="https://loading.io/spinners/spinner/lg.ajax-spinner-preloader.gif" class="ajax-loader" />
+    </div>
+
+    <div class="section group">
+        <div class="result-wrapper col span_1_of_3" ng-repeat="game in model.collection">
+            <img class="result" src="{{game.Image.Small_Url ? game.Image.Small_Url : 'http://www.freeiconspng.com/uploads/no-image-icon-15.png'}}" />
+            <h3><a target="_self" href="/Game?id={{game.Id}}">{{game.Name}}</a></h3>
+
+        </div>
+    </div>
+    <button ng-if="results.TotalResults > 10" type="button" ng-click="nextPage()">Next page</button>
+
+    </div>
