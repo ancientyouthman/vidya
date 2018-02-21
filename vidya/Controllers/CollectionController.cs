@@ -10,7 +10,7 @@ namespace vidya.Controllers
 {
     public class CollectionController : Controller
     {
-        private readonly ApiService _apiService = new ApiService();
+      //  private readonly ApiService _apiService = new ApiService();
         private readonly DatabaseService _databaseService = new DatabaseService();
 
 

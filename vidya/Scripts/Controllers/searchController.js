@@ -10,13 +10,15 @@
     $scope.search = function () {
         $scope.results = [];
         $scope.loading = true;
-        $location.url('/Search?searchTerm=' + $scope.searchForm.searchTerm, false);
+        $location.url('/GameSearch?searchTerm=' + $scope.searchForm.searchTerm, false);
         $http({
             method: 'POST',
-            url: '/Search/SearchGames?Name=' + $scope.searchForm.searchTerm + '&Page=' + $scope.searchForm.page
+            url: '/GameSearch/SearchGames?Name=' + $scope.searchForm.searchTerm + '&Page=' + $scope.searchForm.page
         }).then(function successCallback(response) {
             debugger;
-            $scope.results = response.data.Results;
+            $scope.results = response.data.results;
+            $scope.totalResults = response.data.number_of_total_results;
+
             $scope.loading = false;
         }, function errorCallback(response) {
             alert('error');

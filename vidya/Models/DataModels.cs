@@ -6,14 +6,13 @@ using System.Web;
 
 namespace vidya.Models
 {
-    public class DataModels
-    {
+
         public class Platform
         {
             public string Name { get; set; }
         }
 
-        public class Game
+        public class GameModel
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -40,5 +39,5 @@ namespace vidya.Models
                 this.Games = new List<int>();
             }
         }
-    }
+
 }

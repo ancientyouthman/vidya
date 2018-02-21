@@ -7,7 +7,7 @@ using MongoDB.Bson;
 using MongoDB.Driver.Core;
 using MongoDB.Driver;
 using vidya.Models;
-using static vidya.Models.DataModels;
+using vidya.Services.Api;
 
 namespace vidya.Services
 {
@@ -44,7 +44,7 @@ namespace vidya.Services
             }
         }
 
-        public IEnumerable<Game> GetGameCollection(int userId = 1)
+        public IEnumerable<GameModel> GetGameCollection(int userId = 1)
         {
             var collection = _database.GetCollection<GameCollection>("gameCollections");
             var filter = Builders<GameCollection>.Filter.Eq("userId", userId);
@@ -52,7 +52,7 @@ namespace vidya.Services
            var gameCollection =  collection.Find(filter).FirstOrDefault();
 
             var ids = gameCollection.Games.Select(X => X);
-            var result = new ApiService().GetGames(ids);
+            var result = new GameSearchService().GetGames(ids);
             return result;
         }
 

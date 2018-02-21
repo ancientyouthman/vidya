@@ -16,12 +16,12 @@
 
             </form>
     </div>
-    <p ng-show="results.Results">Showing results {{((searchForm.page -1) * 10) + 1}} to {{((searchForm.page * 10) > results.TotalResults) ?  results.TotalResults : searchForm.page * 10}} of {{results.TotalResults}}</p>
+    <p ng-show="results">Showing results {{((searchForm.page -1) * 10) + 1}} to {{((results.number_of_total_results * 10) > totalResults) ? totalResults : searchForm.page * 10}} of {{totalResults}}</p>
     <div class="spinner" ng-show="loading">
         <img src="https://loading.io/spinners/spinner/lg.ajax-spinner-preloader.gif" class="ajax-loader" />
     </div>
     <div class="section group">
-        <div class="result-wrapper col span_1_of_3" ng-repeat="result in results.Results">
+        <div class="result-wrapper col span_1_of_3" ng-repeat="result in results">
             <img class="result" src="{{result.Image.Small_Url ? result.Image.Small_Url : 'http://www.freeiconspng.com/uploads/no-image-icon-15.png'}}" />
             <h3><a target="_self" href="/Game?id={{result.Id}}">{{result.Name}}</a></h3>
             <h4>{{result.Original_Release_Date | date}}</h4>
@@ -32,5 +32,5 @@
             </ul>
         </div>
     </div>
-    <button ng-if="results.TotalResults > 10" type="button" ng-click="nextPage()">Next page</button>
+    <button ng-if="totalResults > 10" type="button" ng-click="nextPage()">Next page</button>
 </div>
