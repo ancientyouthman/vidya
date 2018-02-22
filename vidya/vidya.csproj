@@ -228,6 +228,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Base\ResponseModel.cs" />
     <Compile Include="Models\DataModels.cs" />
+    <Compile Include="Models\Enums\ListType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Search\GameSearchResultModel.cs" />

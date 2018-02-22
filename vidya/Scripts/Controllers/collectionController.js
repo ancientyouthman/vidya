@@ -6,11 +6,9 @@
         method: 'POST',
         url: '/Collection/GameCollection?id='
     }).then(function successCallback(response) {
-        debugger;
         $scope.model.collection = response.data;
         $scope.loading = false;
     }, function errorCallback(response) {
-        debugger;
         alert('error ' + response);
     });
 

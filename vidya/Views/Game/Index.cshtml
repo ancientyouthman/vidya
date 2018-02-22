@@ -9,15 +9,26 @@
     <div class="spinner" ng-show="loading">
         <img src="https://loading.io/spinners/spinner/lg.ajax-spinner-preloader.gif" class="ajax-loader" />
     </div>
+
     <h2>{{model.Name}}</h2>
     <div class="alert alert-success" ng-show="addSuccess">Sucessfully added {{model.Name}} to your Collection!</div>
-    <button ng-click="addToCollection(model.Id)">Add to collection</button>
+    <div class="alert alert-success" ng-show="removeSuccess">Sucessfully added {{model.Name}} to your Collection!</div>
 
-        <h3>Platforms:</h3>
-        <div ng-repeat="platform in model.Platforms">
-            {{platform.Name}}
-        </div>
+    <button ng-show="!model.Have" ng-click="addToCollection(model.Id, true, 1)">Add to collection</button>
+    <button ng-show="model.Have" ng-click="addToCollection(model.Id, false, 1)">Remove from collection</button>
 
-        <hr />
-        <div ng-bind-html="model.Description"></div>
+    <button ng-show="!model.Want" ng-click="addToCollection(model.Id, true, 2)">Add to wantlist</button>
+    <button ng-show="model.Want" ng-click="addToCollection(model.Id, false, 2)">Remove from wantlist</button>
+
+    <h3>Platforms:</h3>
+    <div>
+        <ul class="list-inline">
+            <li ng-repeat="platform in model.Platforms" ng-click="addPlatform(platform.Id, !platform.Owned)">
+                <span class="label" ng-class="{'label-default' : !platform.Owned, 'label-primary' : platform.Owned}">{{platform.Name}}</span>
+            </li>
+        </ul>
     </div>
+
+    <hr />
+    <div ng-bind-html="model.Description"></div>
+</div>

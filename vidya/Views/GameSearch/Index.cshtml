@@ -11,26 +11,50 @@
 
 
     <div class="row">
-            <form ng-submit="search()">
-                <input class="search-input" placeholder="enter a term..." type="text" ng-model="searchForm.searchTerm" ng-change="search()" ng-model-options="{ debounce: 500 }" id="searchTerm" />
+        <form ng-submit="search()">
+            <input class="search-input" placeholder="enter a term..." type="text" ng-model="searchForm.searchTerm" ng-change="search()" ng-model-options="{ debounce: 500 }" id="searchTerm" />
 
-            </form>
+        </form>
     </div>
-    <p ng-show="results">Showing results {{((searchForm.page -1) * 10) + 1}} to {{((results.number_of_total_results * 10) > totalResults) ? totalResults : searchForm.page * 10}} of {{totalResults}}</p>
-    <div class="spinner" ng-show="loading">
-        <img src="https://loading.io/spinners/spinner/lg.ajax-spinner-preloader.gif" class="ajax-loader" />
-    </div>
-    <div class="section group">
-        <div class="result-wrapper col span_1_of_3" ng-repeat="result in results">
-            <img class="result" src="{{result.Image.Small_Url ? result.Image.Small_Url : 'http://www.freeiconspng.com/uploads/no-image-icon-15.png'}}" />
-            <h3><a target="_self" href="/Game?id={{result.Id}}">{{result.Name}}</a></h3>
-            <h4>{{result.Original_Release_Date | date}}</h4>
-            <ul>
-                <li ng-repeat="platform in result.Platforms">
-                    {{platform.Name}}
-                </li>
-            </ul>
+    @*<p ng-show="results">Showing results {{((searchForm.page -1) * 10) + 1}} to {{((results.number_of_total_results * 10) > totalResults) ? totalResults : searchForm.page * 10}} of {{totalResults}}</p>*@
+    <p ng-show="!loading && results">{{totalResults}} results found for "{{searchForm.searchTerm}}"</p>
+
+    <div class="row">
+        <div class="row" ng-repeat="result in results">
+            <div class="col-md-4">
+                <img class="result" src="{{result.Image.Small_Url ? result.Image.Small_Url : 'http://www.freeiconspng.com/uploads/no-image-icon-15.png'}}" />
+            </div>
+            <div class="col-md-4">
+
+                <h3><a target="_self" href="/Game?id={{result.Id}}">{{result.Name}}</a></h3>
+                <h4>Released: {{result.Original_Release_Date | jsDate | date:"yyyy-MM-dd"}}</h4>
+                <ul class="list-inline">
+                    <li ng-repeat="platform in model.Platforms">
+                        <span class="label label-default">{{platform.Name}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <button class="btn btn-primary" ng-show="!result.Have" ng-click="addToCollection(result.Id, true, 1)">Add to collection</button>
+                    <button class="btn btn-primary" ng-show="result.Have" ng-click="addToCollection(result.Id, false, 1)">Remove from collection</button>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" ng-show="!result.Want" ng-click="addToCollection(result.Id, true, 2)">Add to wantlist</button>
+                    <button class="btn btn-primary" ng-show="result.Want" ng-click="addToCollection(result.Id, false, 2)">Remove from wantlist</button>
+
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary">View buying options</button>
+                </div>
+            </div>
+        </div>
+        <div class="spinner text-center" ng-show="loading">
+            <img src="https://loading.io/spinners/spinner/lg.ajax-spinner-preloader.gif" class="ajax-loader" />
+        </div>
+        @*<button ng-if="totalResults > 10" type="button" ng-click="nextPage()">Next page</button>*@
+        <div class="row text-center">
+            <button ng-if="totalResults > 10 && searchForm.page * 10 < totalResults" type="button" class="btn btn-primary btn-lg" ng-click="loadMore()">Load more</button>
         </div>
     </div>
-    <button ng-if="totalResults > 10" type="button" ng-click="nextPage()">Next page</button>
-</div>
+    </div>
